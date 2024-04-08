@@ -1,69 +1,65 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ConsoleApp2.Models
 {
     public class Hand
     {
         private List<Card> cards;
-        private int totalValue;
 
         public Hand()
         {
             cards = new List<Card>();
-            totalValue = 0;
         }
 
+        // Method to add a card to the hand
         public void AddCard(Card card)
         {
             cards.Add(card);
-            totalValue += card.GetValue();
         }
 
-        public void ClearHand()
+        // Method to calculate the total value of the hand
+        public int TotalValue()
+        {
+            int totalValue = 0;
+            int numAces = 0;
+
+            foreach (var card in cards)
+            {
+                totalValue += card.GetValue();
+                if (card.Rank == Rank.Ace)
+                {
+                    numAces++;
+                }
+            }
+
+            // Adjust total value for aces
+            while (totalValue > 21 && numAces > 0)
+            {
+                totalValue -= 10;
+                numAces--;
+            }
+
+            return totalValue;
+        }
+
+        // Method to check if the hand has blackjack (21)
+        public bool HasBlackjack()
+        {
+            return TotalValue() == 21 && cards.Count == 2;
+        }
+
+        // Method to clear the hand
+        public void Clear()
         {
             cards.Clear();
-            totalValue = 0;
         }
 
-        public void ShowHand(bool isDealer)
+        // Override ToString method to display the hand
+        public override string ToString()
         {
-            if (isDealer)
-            {
-                Console.WriteLine("Dealer's Hand:");
-                Console.WriteLine("Face Down Card");
-                foreach (var card in cards.Skip(1)) // Skip first card (face down)
-                {
-                    Console.WriteLine(card);
-                }
-                Console.WriteLine($"Total Value: {totalValue - cards[0].GetValue()}");
-            }
-            else
-            {
-                Console.WriteLine("NPC's Hand:");
-                foreach (var card in cards)
-                {
-                    Console.WriteLine(card);
-                }
-                Console.WriteLine($"Total Value: {totalValue}");
-            }
-        }
-
-        public int GetTotalValue(bool isDealer)
-        {
-            if (isDealer)
-            {
-                return totalValue - cards[0].GetValue(); // Return total value without face down card
-            }
-            else
-            {
-                return totalValue;
-            }
-        }
-
-        public List<Card> GetCards()
-        {
-            return cards;
+            return string.Join(", ", cards.Select(card => card.ToString()));
         }
     }
 }
