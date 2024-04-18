@@ -19,6 +19,12 @@ namespace ConsoleApp2.Models
             cards.Add(card);
         }
 
+        // Method to get the cards in the hand
+        public List<Card> GetCards()
+        {
+            return cards;
+        }
+
         // Method to calculate the total value of the hand
         public int TotalValue()
         {
@@ -27,10 +33,13 @@ namespace ConsoleApp2.Models
 
             foreach (var card in cards)
             {
-                totalValue += card.GetValue();
-                if (card.Rank == Rank.Ace)
+                if (card.IsFaceUp == false)
                 {
-                    numAces++;
+                    totalValue += card.GetValue();
+                    if (card.CardRank == Card.Rank.Ace)
+                    {
+                        numAces++;
+                    }
                 }
             }
 

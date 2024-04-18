@@ -29,6 +29,7 @@ namespace ConsoleApp2.Models
         public void Hit()
         {
             HasHit = true;
+            Hand.AddCard(DealCard());
         }
 
         // Method to set the dealer as standing
@@ -48,7 +49,7 @@ namespace ConsoleApp2.Models
         // Method to flip the dealer's face-down card face-up
         public void RevealFaceDown()
         {
-            Hand.GetCards()[0].IsFaceUp = true;
+            Hand.GetCards()[0].IsFaceUp = false;
         }
 
         // Method to check if the dealer has busted
@@ -57,13 +58,13 @@ namespace ConsoleApp2.Models
             return Hand.TotalValue() > 21;
         }
 
+
         // Method to hide the dealer's face-down card
         private void FaceDown(Hand hand)
         {
-            var cards = hand.GetCards();
-            if (cards.Count > 0)
+            if (hand.GetCards().Count > 0)
             {
-                cards[0].IsFaceUp = false;
+                hand.GetCards()[0].IsFaceUp = true;
             }
         }
     }

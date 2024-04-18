@@ -24,7 +24,7 @@ namespace ConsoleApp2.Models
             Shuffle();
         }
 
-        private void Shuffle()
+        public void Shuffle()
         {
             shuffledCards.Clear();
             Random rng = new Random();
