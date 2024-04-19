@@ -29,7 +29,7 @@ namespace ConsoleApp2.Models
         public void Hit()
         {
             HasHit = true;
-            Hand.AddCard(DealCard());
+            Hand.AddCard(shoe.DealCard());
         }
 
         // Method to set the dealer as standing

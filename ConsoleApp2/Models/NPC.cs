@@ -23,12 +23,6 @@ namespace ConsoleApp2.Models
             Hand.AddCard(card);
         }
 
-        // NPC logic
-        public bool ShouldHit(Card dealerCard)
-        {
-            return Hand.TotalValue() <= 14;
-        }
-
         // Method to check if the NPC has busted
         public bool CheckBusted()
         {

@@ -109,15 +109,15 @@ namespace ConsoleApp2.Models
             {
                 if (npc.Hand.TotalValue() <= 14)
                 {
+                    Console.WriteLine("npc has hit " + npc.Hand.TotalValue());
                     npc.Hit();
-                    Console.WriteLine(npc.Hand.TotalValue());
-                    Console.WriteLine("npc has hit");
-                    break ;
+                    npc.AddCard(card);
+                    continue;
                 }
                 else if (npc.Hand.TotalValue() >= 14)
                 {
                     npc.Stand();
-                    Console.WriteLine("npc Stand");
+                    Console.WriteLine("npc Stand " + npc.Hand.TotalValue());
                     Console.WriteLine(npc.Hand.TotalValue());
                     break;
                 }
